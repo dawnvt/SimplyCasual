@@ -1,0 +1,3 @@
+[submodule "External/Plugin"]
+	path = External/Plugin
+	url = https://github.com/dawnvt/SimplyCasualPlugin
