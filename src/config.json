@@ -1,0 +1,10 @@
+{
+    "db": {
+        "user": "postgres",
+        "password": "postgres",
+        "host": "localhost",
+        "database": "simply_casual"
+    },
+    "--secret-comment--": "this is a junk secret that is not used in production and is more for people to understand how the system works",
+    "secret": "hS7Mwhv+fvDOurE69LshXDmkc84l9QeVx9qniqAziOcQsYGQBND1tftQsDi4SvA4"
+}

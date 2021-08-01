@@ -9,6 +9,8 @@ for (let i = 0; i < files.length; i++) {
 
 const app = express();
 
+app.use(express.json());
+
 setupRoutes(app);
 
 app.use(express.static("public"));
