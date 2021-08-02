@@ -395,10 +395,9 @@ is-core-module@^2.2.0:
   dependencies:
     has "^1.0.3"
 
-knex@^0.95.8:
-  version "0.95.8"
-  resolved "https://registry.yarnpkg.com/knex/-/knex-0.95.8.tgz#aa464d0870eefc11f6dc8d017bd2b2c30748fdc2"
-  integrity sha512-fEeu8SWyJuW1NHLjnMA2ACEAsVuGuFxtNO5J8bcQdlybnkiNSWPXYX0LhKB17sgWl5UARJrsNpjVeT55ByP8gA==
+knex@wolfcomp/knex#patch-1:
+  version "0.95.9"
+  resolved "https://codeload.github.com/wolfcomp/knex/tar.gz/0120dbb3b8c560da94ce1b9680dc96efbaf4f6b1"
   dependencies:
     colorette "1.2.1"
     commander "^7.1.0"

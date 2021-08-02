@@ -6,5 +6,7 @@
         "database": "simply_casual"
     },
     "--secret-comment--": "this is a junk secret that is not used in production and is more for people to understand how the system works",
-    "secret": "hS7Mwhv+fvDOurE69LshXDmkc84l9QeVx9qniqAziOcQsYGQBND1tftQsDi4SvA4"
+    "secret": "hS7Mwhv+fvDOurE69LshXDmkc84l9QeVx9qniqAziOcQsYGQBND1tftQsDi4SvA4",
+    "--discordHook-comment--": "this field is used to send a message down to discord when a new score is set",
+    "discordHook": ""
 }

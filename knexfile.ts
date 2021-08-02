@@ -5,6 +5,7 @@ module.exports = {
   development: {
     client: "postgresql",
     connection: config.db,
+    version: "13",
     pool: {
       min: 2,
       max: 10
@@ -17,6 +18,7 @@ module.exports = {
   staging: {
     client: "postgresql",
     connection: config.db,
+    version: "13",
     pool: {
       min: 2,
       max: 10
@@ -29,6 +31,7 @@ module.exports = {
   production: {
     client: "postgresql",
     connection: config.db,
+    version: "13",
     pool: {
       min: 2,
       max: 10
