@@ -3,7 +3,7 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { PutRoute } from "../router";
 import config from "../config.json";
 import db from "../db";
-import { Characteristic, Song, Score, User } from "knex/types/tables";
+import { Characteristic, Diff, Song, Score, User } from "knex/types/tables";
 import fetch from "node-fetch";
 import { getSongName, numberWithSpaces } from "../functions";
 
@@ -72,9 +72,10 @@ export class Upload {
                     await db('users').insert({ id: req.body.user_id, name: req.body.user_name });
                 var song = await db.select().from<Song>('songs').where('hash', req.body.hash).first() as Song;
                 if (!song) {
-                    var songInfoReq = await fetch(`https://beatsaver.com/api/maps/by-hash/${req.body.hash}`, { headers: { "User-Agent": "SimplyCasual/1.0.0" } });
-                    var songInfo = await songInfoReq.json() as BeatMapData;
-                    await db('songs').insert({ difficulties: JSON.stringify(songInfo.metadata.characteristics), cover: "https://beatsaver.com" + songInfo.coverURL, hash: req.body.hash, song_author_name: songInfo.metadata.songAuthorName, level_author_name: songInfo.metadata.levelAuthorName, key: songInfo.key, sub_name: songInfo.metadata.songSubName, name: songInfo.metadata.songName });
+                    var hashReq = await fetch(`https://beatmaps.io/api/maps/hash/${req.body.hash}`, { headers: { "User-Agent": "SimplyCasual/1.0.0" } });
+                    var hashReqInfo = await hashReq.json() as BeatMapsIO;
+                    var songInfo = hashReqInfo.versions.find(t => t.hash == req.body.hash);
+                    await db('songs').insert({ difficulties: JSON.stringify(songInfo.diffs), cover: "https://beatmaps.io" + req.body.hash + ".jpg", hash: req.body.hash, song_author_name: hashReqInfo.metadata.songAuthorName, level_author_name: hashReqInfo.metadata.levelAuthorName, key: songInfo.key, sub_name: hashReqInfo.metadata.songSubName, name: hashReqInfo.metadata.songName });
                     song = await db.select().from<Song>('songs').where('hash', req.body.hash).first();
                     await finalUpload(req, res, user, song);
                 }
@@ -121,4 +122,51 @@ interface BeatMapData {
     uploader: { username: string };
     hash: string;
     coverURL: string;
+}
+
+export interface Uploader {
+    id: number;
+    name: string;
+    hash: string;
+    avatar: string;
+}
+
+export interface MetadataIO {
+    bpm: number;
+    duration: number;
+    songName: string;
+    songSubName: string;
+    songAuthorName: string;
+    levelAuthorName: string;
+}
+
+export interface Stats {
+    plays: number;
+    downloads: number;
+    upvotes: number;
+    downvotes: number;
+    score: number;
+}
+
+export interface Version {
+    hash: string;
+    key: string;
+    state: string;
+    createdAt: Date;
+    sageScore: number;
+    diffs: Diff[];
+}
+
+export interface BeatMapsIO {
+    id: number;
+    name: string;
+    description: string;
+    uploader: Uploader;
+    metadata: MetadataIO;
+    stats: Stats;
+    uploaded: Date;
+    automapper: boolean;
+    ranked: boolean;
+    qualified: boolean;
+    versions: Version[];
 }

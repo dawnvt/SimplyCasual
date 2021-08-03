@@ -32,11 +32,41 @@ declare module 'knex/types/tables' {
         obstacles: number;
     }
 
-    type Difficulties = "easy" | "normal" | "hard" | "expert" | "expertPlus";
+    type Difficulties = "Easy" | "Normal" | "Hard" | "Expert" | "ExpertPlus";
+
+    type DifficultiesLower = "easy" | "normal" | "hard" | "expert" | "expertPlus";
+
+    type Characteristics = "Standard" | "OneSaber" | "NoArrows" | "_90Degree" | "_360Degree" | "Lightshow" | "Lawless";
 
     interface Characteristic {
-        difficulties: { [id in Difficulties]: Difficulty };
+        difficulties: { [id in Difficulties]: DifficultiesLower };
         name: string;
+    }
+
+    interface Diff {
+        njs: number;
+        offset: number;
+        notes: number;
+        bombs: number;
+        obstacles: number;
+        nps: number;
+        length: number;
+        characteristic: Characteristics;
+        difficulty: Difficulties;
+        events: number;
+        chroma: boolean;
+        me: boolean;
+        ne: boolean;
+        cinema: boolean;
+        seconds: number;
+        paritySummary: ParitySummary;
+        stars?: number;
+    }
+
+    interface ParitySummary {
+        errors: number;
+        warns: number;
+        resets: number;
     }
 
     interface Song {
@@ -48,7 +78,7 @@ declare module 'knex/types/tables' {
         hash: string;
         song_author_name: string;
         level_author_name: string;
-        difficulties: Characteristic[] | string;
+        difficulties: Diff[] | string;
         created_at: Date;
         updated_at: Date;
     }
