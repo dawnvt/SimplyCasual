@@ -3,7 +3,7 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { PutRoute } from "../router";
 import config from "../config.json";
 import db from "../db";
-import { Characteristic, Diff, Song, Score, User } from "knex/types/tables";
+import { Diff, Song, Score, User } from "./schema";
 import fetch from "node-fetch";
 import { getSongName, numberWithSpaces } from "../functions";
 
@@ -107,31 +107,14 @@ interface IUpload {
     modifiers: number;
 }
 
-interface Metadata {
-    characteristics: Characteristic[];
-    levelAuthorName: string;
-    songAuthorName: string;
-    songName: string;
-    songSubName: string;
-}
-
-interface BeatMapData {
-    metadata: Metadata;
-    key: string;
-    name: string;
-    uploader: { username: string };
-    hash: string;
-    coverURL: string;
-}
-
-export interface Uploader {
+interface Uploader {
     id: number;
     name: string;
     hash: string;
     avatar: string;
 }
 
-export interface MetadataIO {
+interface MetadataIO {
     bpm: number;
     duration: number;
     songName: string;
@@ -140,7 +123,7 @@ export interface MetadataIO {
     levelAuthorName: string;
 }
 
-export interface Stats {
+interface Stats {
     plays: number;
     downloads: number;
     upvotes: number;
@@ -148,7 +131,7 @@ export interface Stats {
     score: number;
 }
 
-export interface Version {
+interface Version {
     hash: string;
     key: string;
     state: string;
@@ -157,7 +140,7 @@ export interface Version {
     diffs: Diff[];
 }
 
-export interface BeatMapsIO {
+interface BeatMapsIO {
     id: number;
     name: string;
     description: string;

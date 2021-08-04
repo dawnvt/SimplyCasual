@@ -1,18 +1,29 @@
 {
   "name": "simply-casual",
   "version": "1.0.0",
-  "main": "dist/main.js",
+  "main": "src/main.ts",
   "license": "GPL-3.0-only",
   "dependencies": {
+    "apollo-server-express": "^3.1.2",
+    "class-validator": "^0.13.1",
     "express": "^4.17.1",
+    "graphql": "^15.5.1",
     "knex": "wolfcomp/knex#patch-1",
     "node-fetch": "^2.6.1",
     "pg": "^8.7.1",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/node-fetch": "^2.5.12",
     "ts-node": "^10.1.0"
+  },
+  "scripts": {
+    "deps:get": "yarn run deps:global && yarn run deps:local",
+    "deps:global": "npm install -g typescript ts-node nodemon knex yarn",
+    "deps:local": "yarn",
+    "migrate": "knex migrate:latest"
   }
 }

@@ -1,5 +1,6 @@
 import knex, { Knex } from 'knex';
 import config from './config.json';
+import { User, Score, Song } from './api/schema';
 
 const db = knex({
     connection: config.db,
@@ -14,90 +15,6 @@ const db = knex({
 export default db;
 
 declare module 'knex/types/tables' {
-    interface User {
-        id: string;
-        name: string;
-        img: string;
-        created_at: Date;
-        updated_at: Date;
-    }
-
-    interface Difficulty {
-        duration: number;
-        length: number;
-        njs: number;
-        njsOffset: number;
-        bombs: number;
-        notes: number;
-        obstacles: number;
-    }
-
-    type Difficulties = "Easy" | "Normal" | "Hard" | "Expert" | "ExpertPlus";
-
-    type DifficultiesLower = "easy" | "normal" | "hard" | "expert" | "expertPlus";
-
-    type Characteristics = "Standard" | "OneSaber" | "NoArrows" | "_90Degree" | "_360Degree" | "Lightshow" | "Lawless";
-
-    interface Characteristic {
-        difficulties: { [id in Difficulties]: DifficultiesLower };
-        name: string;
-    }
-
-    interface Diff {
-        njs: number;
-        offset: number;
-        notes: number;
-        bombs: number;
-        obstacles: number;
-        nps: number;
-        length: number;
-        characteristic: Characteristics;
-        difficulty: Difficulties;
-        events: number;
-        chroma: boolean;
-        me: boolean;
-        ne: boolean;
-        cinema: boolean;
-        seconds: number;
-        paritySummary: ParitySummary;
-        stars?: number;
-    }
-
-    interface ParitySummary {
-        errors: number;
-        warns: number;
-        resets: number;
-    }
-
-    interface Song {
-        id: string;
-        key: string;
-        name: string;
-        sub_name: string;
-        cover: string;
-        hash: string;
-        song_author_name: string;
-        level_author_name: string;
-        difficulties: Diff[] | string;
-        created_at: Date;
-        updated_at: Date;
-    }
-
-    interface Score {
-        id: string;
-        difficulty: string;
-        percent: number;
-        score: number;
-        modifiers: number;
-        misses: number;
-        bad_cuts: number;
-        hmd: string;
-        user_id: string;
-        song_id: string;
-        created_at: Date;
-        updated_at: Date;
-    }
-
     interface Tables {
         users: User;
         scores: Score;
